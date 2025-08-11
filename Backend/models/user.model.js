@@ -4,13 +4,15 @@ const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
   fullname: {
-    firstname: { type: String, required: true },
-    minlength: [3, "First name must be at least 3 charachters long"],
-    required: true,
-  },
-  lastname: {
-    lastname: { type: String, required: true },
-    minlength: [3, "Last name must be at least 3 charachters long"],
+    firstname: {
+      type: String,
+      minlength: [3, "First name must be at least 3 characters long"],
+      required: true,
+    },
+    lastname: {
+      type: String,
+      minlength: [3, "Last name must be at least 3 characters long"],
+    },
   },
   email: {
     type: String,
@@ -28,18 +30,20 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.genrtareAuthToken = function () {
-  const token = jwt.sign({ _id: this._id }.process.env.JWT_SECRET);
-  return token;
+// Instance method
+UserSchema.methods.generateAuthToken = function () {
+  return jwt.sign({ _id: this._id }, process.env.JWT_SECRET);
 };
 
-userSchema.methods.comparePassword = async function (password) {
+// Instance method
+UserSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-userSchema.statics.hashPassword = async function (password) {
-  return await bcrypt.hast(password, 10);
+// Static method
+UserSchema.statics.hashPassword = async function (password) {
+  return await bcrypt.hash(password, 10);
 };
 
 const userModel = mongoose.model("user", UserSchema);
-moodule.exports = userModel;
+module.exports = userModel;
