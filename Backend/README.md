@@ -149,3 +149,83 @@ curl -X POST http://localhost:PORT/users/login \
 ```
 
 ---
+
+# Get User Profile Endpoint
+
+## GET `/users/profile`
+
+Returns the authenticated user's profile information.
+
+### Authentication
+
+Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+### Responses
+
+- **200 OK**
+
+  - Returns: User profile object.
+
+- **401 Unauthorized**
+  - Missing or invalid token.
+
+### Example Request
+
+```bash
+curl -X GET http://localhost:PORT/users/profile \
+  -H "Authorization: Bearer <jwt_token>"
+```
+
+### Example Response
+
+```json
+{
+  "_id": "65f1c2e4e4b0a2b1c8d7e9f0",
+  "fullname": {
+    "firstname": "Jane",
+    "lastname": "Smith"
+  },
+  "email": "jane.smith@example.com",
+  "socketId": null
+}
+```
+
+---
+
+# User Logout Endpoint
+
+## GET `/users/logout`
+
+### Description
+
+Logs out the authenticated user by blacklisting their JWT token and clearing the cookie.
+
+### Authentication
+
+Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+### Responses
+
+- **200 OK**
+
+  - Returns: `{ "message": "Logged out" }`
+
+- **401 Unauthorized**
+  - Missing or invalid token.
+
+### Example Request
+
+```bash
+curl -X GET http://localhost:PORT/users/logout \
+  -H "Authorization: Bearer <jwt_token>"
+```
+
+### Example Response
+
+```json
+{
+  "message": "Logged out"
+}
+```
+
+---
