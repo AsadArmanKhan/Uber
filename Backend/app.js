@@ -8,6 +8,7 @@ const ConnectToDb = require("./DB/db");
 const userRoutes = require("./routes/user.routes");
 const userModel = require("./models/user.model");
 const userController = require("./controllers/user.controller");
+const captainRoutes = require("./routes/captain.routes");
 
 ConnectToDb();
 
@@ -20,5 +21,7 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 app.use("/users", userRoutes);
+app.use("/captains", captainRoutes);
+
 
 module.exports = app;
