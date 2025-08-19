@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserDataContext } from "../context/UserContext";
 
 export default function UserSignup() {
   const [firstName, setFirstName] = useState();
@@ -8,17 +10,29 @@ export default function UserSignup() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState({});
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const { user, setUser } = React.useContext(UserDataContext);
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
+    const newUser = {
       fullName: {
         firstName: firstName,
         lastName: lastName,
       },
       email: email,
       password: password,
-    });
-    console.log(userData);
+    };
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/users/register`,
+      newUser
+    );
+    if (response.status === 201) {
+      const data = response.data;
+      setUser(data.user);
+      navigate("/home");
+    }
+    // console.log(newUser);
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -33,7 +47,7 @@ export default function UserSignup() {
         <h2 className="text-3xl font-semibold text-center text-gray-900 mb-6">
           User Sign Up
         </h2>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={submitHandler}>
           {/* First Name + Last Name */}
           <div className="flex gap-4">
             <input
