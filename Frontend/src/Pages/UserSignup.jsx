@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,13 +11,13 @@ export default function UserSignup() {
   const [password, setPassword] = useState();
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
-  const { user, setUser } = React.useContext(UserDataContext);
+  const { user, setUser } = useContext(UserDataContext);
   const submitHandler = async (e) => {
     e.preventDefault();
     const newUser = {
-      fullName: {
-        firstName: firstName,
-        lastName: lastName,
+      fullname: {
+        firstname: firstName,
+        lastname: lastName,
       },
       email: email,
       password: password,
@@ -30,6 +30,7 @@ export default function UserSignup() {
     if (response.status === 201) {
       const data = response.data;
       setUser(data.user);
+      localStorage.setItem("token", data.token);
       navigate("/home");
     }
     // console.log(newUser);
