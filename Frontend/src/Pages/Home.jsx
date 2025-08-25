@@ -1,18 +1,23 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useActionState } from "react";
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import "remixicon/fonts/remixicon.css";
 import LocationSearchPanels from "../components/LocationSearchPanels";
+import VehiclePanel from "../components/VehiclePanel";
+import ConfirmRide from "../components/ConfirmRide";
 
 export default function Home() {
   const [pickup, setPickup] = useState("");
   const [panelOpen, setPanelOpen] = useState(false);
   const [destination, setDestination] = useState("");
-
+  const [vehiclePanel, setVehiclePanel] = useState(false);
+  const [confirmRidePanel, setConfirmRidePanel] = useState(false);
+  const VehiclePanelRef = useRef(null);
+  const ConfirmRideRef = useRef(null);
   const panelRef = useRef(null);
   const imgRef = useRef(null);
   const formRef = useRef(null);
-  const searchRef = useRef(null); // ref for LocationSearchPanels wrapper
-
+  const searchRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
   };
@@ -51,7 +56,7 @@ export default function Home() {
         height: "auto",
         opacity: 1,
         duration: 0.5,
-        padding:20,
+        padding: 20,
         ease: "power3.out",
         delay: 0.3,
       });
@@ -81,9 +86,40 @@ export default function Home() {
     }
   }, [panelOpen]);
 
+  useEffect(() => {
+    if (vehiclePanel) {
+      gsap.to(VehiclePanelRef.current, {
+        y: 0, // slide up
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(VehiclePanelRef.current, {
+        y: "100%", // slide down
+        duration: 0.6,
+        ease: "power3.inOut",
+      });
+    }
+  }, [vehiclePanel]);
+  useEffect(() => {
+    if (confirmRidePanel) {
+      gsap.to(ConfirmRideRef.current, {
+        y: 0, // slide up
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(VehiclePanelRef.current, {
+        y: "100%", // slide down
+        duration: 0.6,
+        ease: "power3.inOut",
+      });
+    }
+  }, [confirmRidePanel]);
+
   return (
     <>
-      <div className="h-screen relative overflow-hidden">
+      <div className="h-screen relative overflow-hidden ">
         {/* Background Image */}
         <div className="h-screen w-screen">
           <img
@@ -138,11 +174,35 @@ export default function Home() {
             {/* Location Search Panel - hidden by default */}
             <div
               ref={searchRef}
-              className="overflow-hidden opacity-0 h-0 transition-all"
+              className="overflow-hidden opacity-0 h-0 transition-all p-0"
             >
-              <LocationSearchPanels />
+              <LocationSearchPanels
+                vehiclePanel={vehiclePanel}
+                setVehiclePanel={setVehiclePanel}
+                panelOpen={panelOpen}
+                setPanelOpen={setPanelOpen}
+              />
             </div>
           </div>
+        </div>
+
+        <div
+          ref={VehiclePanelRef}
+          className="form-animate w-full z-50 bg-white bottom-0 absolute py-6 px-3 translate-y-full "
+        >
+          <VehiclePanel
+            setConfirmRidePanel={setConfirmRidePanel}
+            setVehiclePanel={setVehiclePanel}
+          />
+        </div>
+        <div
+          ref={ConfirmRideRef}
+          className="form-animate w-full z-50 bg-white bottom-0 absolute py-6 px-3 translate-y-full "
+        >
+          <ConfirmRide
+            setConfirmRidePanel={setConfirmRidePanel}
+            setVehiclePanel={setVehiclePanel}
+          />
         </div>
       </div>
     </>
