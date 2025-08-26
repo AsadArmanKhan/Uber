@@ -5,6 +5,7 @@ import "remixicon/fonts/remixicon.css";
 import LocationSearchPanels from "../components/LocationSearchPanels";
 import VehiclePanel from "../components/VehiclePanel";
 import ConfirmRide from "../components/ConfirmRide";
+import LookingForDriver from "../components/LookingForDriver";
 
 export default function Home() {
   const [pickup, setPickup] = useState("");
@@ -12,8 +13,10 @@ export default function Home() {
   const [destination, setDestination] = useState("");
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
+  const [vehicleFound, setVehicleFound] = useState(false);
   const VehiclePanelRef = useRef(null);
   const ConfirmRideRef = useRef(null);
+  const VehicleFoundRef = useRef(null);
   const panelRef = useRef(null);
   const imgRef = useRef(null);
   const formRef = useRef(null);
@@ -109,13 +112,28 @@ export default function Home() {
         ease: "power3.out",
       });
     } else {
-      gsap.to(VehiclePanelRef.current, {
+      gsap.to(ConfirmRideRef.current, {
         y: "100%", // slide down
         duration: 0.6,
         ease: "power3.inOut",
       });
     }
   }, [confirmRidePanel]);
+  useEffect(() => {
+    if (vehicleFound) {
+      gsap.to(VehicleFoundRef.current, {
+        y: 0, // slide up
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(VehicleFoundRef.current, {
+        y: "100%", // slide down
+        duration: 0.6,
+        ease: "power3.inOut",
+      });
+    }
+  }, [vehicleFound]);
 
   return (
     <>
@@ -202,6 +220,15 @@ export default function Home() {
           <ConfirmRide
             setConfirmRidePanel={setConfirmRidePanel}
             setVehiclePanel={setVehiclePanel}
+          />
+        </div>
+        <div
+          ref={VehicleFoundRef}
+          className="form-animate w-full z-50 bg-white bottom-0 absolute py-6 px-3 translate-y-full "
+        >
+          <LookingForDriver
+            setVehicleFound={setVehicleFound}
+            setConfirmRidePanel={setConfirmRidePanel}
           />
         </div>
       </div>
