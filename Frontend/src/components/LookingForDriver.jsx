@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 
 export default function LookingForDriver(props) {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Link to={'/'}>
-        <button
-        //   onClick={() => props.setVehicleFound(false)}
-          className="absolute right-5 top-5 text-2xl font-bold text-gray-600 z-10"
-        >
-          <i className="ri-arrow-left-line"></i>
-        </button>
-      </Link>
-      <div className="bg-white p-8 h-full rounded-lg shadow-lg text-center">
+    <div className="flex items-center justify-center  bg-gray-100">
+
+      <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+      <button
+          onClick={() => props.setVehicleFound(false)}
+        className="absolute right-5 top-5 text-2xl font-bold text-gray-600 z-10"
+      >
+         <i className="ri-arrow-down-s-line"></i>
+      </button>
         <img
           className="w-80 h-50 mx-auto mb-4"
           src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_768,w_1152/v1743773253/assets/5e/8ce23d-35fa-425d-a7d2-08a2826d04bc/original/UberBlackXL.png"

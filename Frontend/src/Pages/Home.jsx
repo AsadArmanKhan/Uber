@@ -6,6 +6,7 @@ import LocationSearchPanels from "../components/LocationSearchPanels";
 import VehiclePanel from "../components/VehiclePanel";
 import ConfirmRide from "../components/ConfirmRide";
 import LookingForDriver from "../components/LookingForDriver";
+import WaitForDriver from "../components/WaitForDriver";
 
 export default function Home() {
   const [pickup, setPickup] = useState("");
@@ -14,9 +15,11 @@ export default function Home() {
   const [vehiclePanel, setVehiclePanel] = useState(false);
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
   const [vehicleFound, setVehicleFound] = useState(false);
+  const [driverFound, setDriverFound] = useState(false);
   const VehiclePanelRef = useRef(null);
   const ConfirmRideRef = useRef(null);
   const VehicleFoundRef = useRef(null);
+  const DriverFoundRef = useRef(null);
   const panelRef = useRef(null);
   const imgRef = useRef(null);
   const formRef = useRef(null);
@@ -122,7 +125,7 @@ export default function Home() {
   useEffect(() => {
     if (vehicleFound) {
       gsap.to(VehicleFoundRef.current, {
-        y: 0, // slide up
+        y: 40, // slide up
         duration: 0.6,
         ease: "power3.out",
       });
@@ -134,6 +137,21 @@ export default function Home() {
       });
     }
   }, [vehicleFound]);
+  useEffect(() => {
+    if (driverFound) {
+      gsap.to(DriverFoundRef.current, {
+        y: 0, // slide up
+        duration: 0.6,
+        ease: "power3.out",
+      });
+    } else {
+      gsap.to(DriverFoundRef.current, {
+        y: "100%", // slide down
+        duration: 0.6,
+        ease: "power3.inOut",
+      });
+    }
+  }, [driverFound]);
 
   return (
     <>
@@ -220,6 +238,7 @@ export default function Home() {
           <ConfirmRide
             setConfirmRidePanel={setConfirmRidePanel}
             setVehiclePanel={setVehiclePanel}
+            setVehicleFound={setVehicleFound}
           />
         </div>
         <div
@@ -230,6 +249,12 @@ export default function Home() {
             setVehicleFound={setVehicleFound}
             setConfirmRidePanel={setConfirmRidePanel}
           />
+        </div>
+        <div
+          ref={DriverFoundRef}
+          className="form-animate w-full z-50 bg-white bottom-0 absolute py-6 px-3 translate-y-full "
+        >
+          <WaitForDriver setDriverFound={setDriverFound} />
         </div>
       </div>
     </>

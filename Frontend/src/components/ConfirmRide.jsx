@@ -54,11 +54,14 @@ export default function ConfirmRide(props) {
 
           {/* Confirm Button */}
           <div className="mt-5">
-            <Link to={"/looking"}>
-              <button className="w-full bg-black text-white py-3 rounded-xl font-semibold text-lg">
-                Confirm UberGO
-              </button>
-            </Link>
+            <button
+              onClick={() => {
+                props.setVehicleFound(true);
+              }}
+              className="w-full bg-black text-white py-3 rounded-xl font-semibold text-lg"
+            >
+              Confirm UberGO
+            </button>
           </div>
         </div>
       </div>

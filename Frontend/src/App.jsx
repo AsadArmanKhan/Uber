@@ -11,6 +11,7 @@ import UserLogout from "./Pages/UserLogout";
 import CaptainHome from "./Pages/CaptainHome";
 import CaptainProtectWrapper from "./Pages/CaptainProtectWrapper";
 import LookingForDriver from "./components/LookingForDriver";
+import UserCurrentLocation from "./Pages/UserCurrentLocation";
 
 export default function App() {
   return (
@@ -22,7 +23,7 @@ export default function App() {
         <Route path="/signup" element={<UserSignup />} />
         <Route path="/captain/login" element={<CaptainLogin />} />
         <Route path="/captain/signup" element={<CaptainSignup />} />
-        <Route path="/looking" element={<LookingForDriver />} />
+        <Route path="/currentlocation" element={<UserCurrentLocation />} />
         <Route
           path="/home"
           element={
