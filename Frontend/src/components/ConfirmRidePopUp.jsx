@@ -62,7 +62,7 @@ export default function ConfirmRidePopUp(props) {
         </div>
 
         {/* Confirm Button */}
-        <div className="mt-5 flex justify-around  w-full">
+        <div className="mt-5 pb-5 flex justify-around  w-full">
           <button
             onClick={() => {
               props.setConfirmRidePopUp(false);
@@ -72,7 +72,7 @@ export default function ConfirmRidePopUp(props) {
           >
             Cancel
           </button>
-          <Link to={'/'}>
+          <Link to={'/captainriding'}>
             <button className="w-30 bg-green-400 text-white  py-3 rounded-xl font-semibold text-lg">
               Confirm
             </button>

@@ -61,7 +61,7 @@ export default function RidePopUp(props) {
           </div>
 
           {/* Confirm Button */}
-          <div className="mt-5 flex justify-around  w-full">
+          <div className="mt-5 pb-5 flex justify-around  w-full">
             <button
               onClick={() => {
                 props.setRidePopUpPanel(false);
