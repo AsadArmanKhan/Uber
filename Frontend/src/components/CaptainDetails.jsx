@@ -39,9 +39,9 @@ export default function CaptainDetails() {
           <p className="text-xs text-gray-600">Hours Online</p>
         </div>
       </div>
-      <div className="form-animate w-full z-50 bg-white bottom-0 fixed py-6 px-3  ">
-        <RidePopUp/>
-      </div>
+      {/* <div className="form-animate w-full  z-50 bg-white bottom-0 fixed py-6 px-3  ">
+        <RidePopUp />
+      </div> */}
     </>
   );
 }

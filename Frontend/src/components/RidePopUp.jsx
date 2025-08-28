@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function RidePopUp() {
+export default function RidePopUp(props) {
   return (
     <>
       <div>
@@ -8,19 +8,21 @@ export default function RidePopUp() {
           <div className="p-1 text-center text-2xl mb-5 font-semibold ">
             A new ride for our Captain!
           </div>
-          <div className="flex mt-7 items-center justify-between">
+          <div className="flex mt-7 rounded-xl py-1 bg-amber-400 px-3 items-center justify-between">
             <div className="flex items-center gap-2">
               <img
-                className="w-23 h-23 rounded-full object-fit"
-                src="https://www.zmo.ai/wp-content/uploads/2023/11/ImgCreator.ai-1-9-6-0-long-redhead-cute-young-woman-looking-at-the-camera-wearing-a-black-French-beret-in-a-cute.webp"
+                className="w-15 h-15 rounded-full object-fit"
+                src="https://www.zmo.ai/wp-content/uploads/2023/11/ImgCreator.ai-a-girl-with-short-hair-.webp"
                 alt=""
               />
-              <h2 className="text-xl font-medium">Selena Gomez</h2 >
+              <h2 className="text-xl font-medium">Selena Gomez</h2>
             </div>
-              <h5 className="text-lg font-semibold">10.37/km</h5>
+            <h5 className="text-lg font-semibold">10.37/km</h5>
           </div>
           {/* <button
-            onClick={() => props.setConfirmRidePanel(false)}
+            onClick={() => {
+              props.setRidePopUpPanel(false);
+            }}
             className="absolute right-5 top-5 text-2xl font-bold text-gray-600 z-10"
           >
             <i className="ri-arrow-down-s-line"></i>
@@ -60,10 +62,20 @@ export default function RidePopUp() {
 
           {/* Confirm Button */}
           <div className="mt-5 flex justify-around  w-full">
-            <button className="w-30 bg-gray-300 text-black py-3 rounded-xl font-semibold text-lg">
+            <button
+              onClick={() => {
+                props.setRidePopUpPanel(false);
+              }}
+              className="w-30 bg-gray-300 text-black py-3 rounded-xl font-semibold text-lg"
+            >
               Reject
             </button>
-            <button className="w-30 bg-green-400 text-white  py-3 rounded-xl font-semibold text-lg">
+            <button
+              onClick={() => {
+                props.setConfirmRidePopUp(true);
+              }}
+              className="w-30 bg-green-400 text-white  py-3 rounded-xl font-semibold text-lg"
+            >
               Accept
             </button>
           </div>
